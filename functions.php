@@ -2430,6 +2430,7 @@ function add_payin_schemes($aArrData)
 {
 	global $wpdb;
 	$strSchemeTable = $wpdb->prefix . 'satarah_scheme';
+	$intUserid = get_current_user_id();
 	
 	unset($aArrData['posttype']);
 	unset($aArrData['id']);
@@ -2447,6 +2448,24 @@ function add_payin_schemes($aArrData)
 	
 	$aArrData['created_by'] = $intUserid;
 	$aArrData['date_created'] = time();
+	$aArrData['is_active'] = 1;
+	
+	$objData = $wpdb->get_row("SELECT id FROM $strSchemeTable ORDER BY date_created DESC LIMIT 1");
+			
+	if(false != $objData)
+	{
+		$updateData = array(
+			'date_modified' => time(),
+			'modified_by' => $intUserid,
+			'is_active' => 0				
+		);
+		
+		$whereData = array(
+			'id' => $objData->id
+		);
+		
+		$wpdb->update($strSchemeTable, $updateData, $whereData);
+	}
 		
 	$boolResult = $wpdb->insert($strSchemeTable, $aArrData);		
 	
@@ -2496,7 +2515,7 @@ function get_payin_schemes($aBoolEditScreen = false)
 	
 	if($aBoolEditScreen == false)
 	{
-		$strWhere = "WHERE is_active = 1";
+		$strWhere = "WHERE is_active = 1 ORDER BY date_created DESC LIMIT 1";
 	}
 	else
 	{
@@ -2539,7 +2558,7 @@ function add_new_payin($aArrData)
 	$strPayinTable = $wpdb->prefix . 'satarah_payin';
 	
 	$aArrData['entry_date'] = time();
-	$aArrData['is_active'] = 1;
+	$aArrData['is_active'] = 1;	
 	
 	$intReferer = $aArrData['referrer'];
 	if($intReferer > 0)
@@ -2561,35 +2580,62 @@ function add_new_payin($aArrData)
 	else 
 	{
 		unset($aArrData['referrer']);
+		unset($aArrData['referrer_cash_rate']);
+		unset($aArrData['referrer_product_rate']);
+	}
+	
+	$boolPoints = 0;
+	if(isset($aArrData['points']))
+	{
+		$boolPoints = $aArrData['points'];
+		unset($aArrData['points']);
 	}
 	
 	$boolSuccess = $wpdb->insert($strPayinTable, $aArrData);
 	
 	if(false == $boolSuccess)
 	{
-		echo '<div class="container alert alert-danger">Error: Payin could not be added to the database.</div>';
+		return "2";
 	}
 	else
 	{
 		$objPayinId = $wpdb->get_row("SELECT id FROM $strPayinTable ORDER BY id DESC LIMIT 1");
 		$aArrData['payin_id'] = $objPayinId->id;
+		$aArrData['points'] = $boolPoints;
 		process_payout_order($aArrData);
 	}
+	
+	return "3";
 }
 
 function process_payout_order($aArrData)
 {
 	global $wpdb;
-	$strPayinHistoryTable = $wpdb->prefix . 'satarah_payin_history';
+	$strPayinHistoryTable = $wpdb->prefix . 'satarah_payin_history';	
 	
 	$intInvestmentEntry = $aArrData['amount'];
 	$intRate = $aArrData['rate'];
 	$intSplit = $aArrData['split'];
 	$intCtr = 1;
 	
-	$flPayoutAmount = $intInvestmentEntry * ($intRate / 100);
-	$intEndPayoutAmount = $intInvestmentEntry + $flPayoutAmount;
-	$intPoints = $intInvestmentEntry * (.03 / 100);
+	$flPayoutAmount = $intInvestmentEntry * ($intRate / 100);	
+		
+	// Check and set points to award
+	$intPoints = 0;	
+	if(1 == $aArrData['points'])
+	{
+		$intPoints = $intInvestmentEntry * (.03 / 100);		
+	}
+	
+	// Check split if base six; process if not
+	if($intSplit < 6)
+	{
+		$flPayoutAmount = $flPayoutAmount + ($flPayoutAmount / $intSplit);
+	}
+	else if ($intSplit > 6)
+	{
+		$flPayoutAmount = $flPayoutAmount - ($flPayoutAmount / $intSplit);
+	}
 	
 	if(1 == $aArrData['type'])
 	{
@@ -2618,6 +2664,8 @@ function process_payout_order($aArrData)
 		++$intCtr;	
 	}
 	// Insert final investment amount
+	$intEndPayoutAmount = $intInvestmentEntry + $flPayoutAmount;
+	
 	$arrData = array(
 			'payin_id' 		=> $aArrData['payin_id'],
 			'amount'		=> $intEndPayoutAmount,
@@ -2628,7 +2676,12 @@ function process_payout_order($aArrData)
 			'is_active'		=> 1
 	
 	);
-	$wpdb->insert($strPayinHistoryTable, $arrData);
+	$boolResult = $wpdb->insert($strPayinHistoryTable, $arrData);
+	
+	if($boolResult == false)
+	{
+		return "4";
+	}
 }
 
 function process_referral($aArrData)
@@ -2744,9 +2797,26 @@ function get_previous_payin($aIntUserid)
 	global $wpdb;
 	$strPayinTable = $wpdb->prefix . "satarah_payin";
 	
-	$objData = $wpdb->get_row("SELECT amount FROM $strPayinTable WHERE userid = $aIntUserid ORDER BY entry_date DESC LIMIT 1");
+	$objData = $wpdb->get_row("SELECT * FROM $strPayinTable WHERE userid = $aIntUserid ORDER BY entry_date DESC LIMIT 1");
 	
-	return number_format($objData->amount, 2);
+	return $objData;
+}
+
+function get_previous_last_payout($aIntUserid)
+{
+	global $wpdb;
+	$strPayinHistoryTable = $wpdb->prefix . "satarah_payin_history";
+	
+	$objPayinData = get_previous_payin($aIntUserid);
+	
+	$objData = $wpdb->get_row("SELECT amount FROM $strPayinHistoryTable WHERE payin_id = $objPayinData->id ORDER BY amount DESC LIMIT 1");
+	
+	return format_number($objData->amount);
+}
+
+function format_number($aIntNumber)
+{
+	return number_format($aIntNumber, 2);
 }
 
 function get_referrers()

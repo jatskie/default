@@ -15,50 +15,15 @@ if(is_user_logged_in() == false)
 get_header();
 
 $intUserid = intval( get_query_var('up_username', get_current_user_id()) );
+
+$intPostMessage = intval( $_GET['msg'] );
+
 // initialize page with the most recent payin
 $intPayinId = get_recent_payinid($intUserid);
 
-if(isset($_POST) && "" != $_POST['posttype'])
-{
-	switch ($_POST['posttype'])
-	{
-		case 'newpayin':
-			// second layer validation
-			$arrData = $_POST;
-			$intErrorCount = 0;
-			$arrProcessedData = array();
-			
-			foreach ($arrData as $strKey => $strData)
-			{
-				if("" == $strData)
-				{
-					++$intErrorCount;			
-				}
-				else
-				{
-					if($strKey == 'posttype' || $strKey == 'investor_name')
-					{
-						continue;
-					}
-					
-					$arrProcessedData[$strKey] = intval($strData);
-				}
-			}
-			
-			if(0 < $intErrorCount)
-			{
-				echo '<div class="col-xs-12 alert alert-danger">Error: Values missing from new pay in form.</div>';
-			}
-			else
-			{
-				add_new_payin($arrProcessedData);
-			}
-			break;
-		case 'payouttimeframe':
-			$intPayinId = $_POST['payin_id'];
-			break;
-			
-	}
+if(isset($_POST) && "payouttimeframe" == $_POST['posttype'])
+{	
+	$intPayinId = $_POST['payin_id'];
 }
 // Get all active payin entry dates
 $arrTimeframe = get_payout_timeframe($intUserid);
@@ -69,7 +34,30 @@ $arrPayoutData = get_payout_data($intUserid, $intPayinId);
 $arrReferrals = get_referrals($intUserid);
 
 ?>
+
 <div class="container">
+	<?php 
+		switch ($intPostMessage)
+		{
+			case 1:
+				$strMsg = "Error: Something is wrong with your pay-in form!";
+				break;
+			case 2:
+				$strMsg = "Error: Adding of payin did not succeed";
+				break;
+			case 3:
+				$strMsg = "Pay-in added successfully!";
+				break;
+			case 4:
+				$strMsg = "Error: Pay-out processing encountered an error.";
+				break;				
+		}
+		
+		if($intPostMessage > 0)
+		{
+			echo '<div class="col-xs-12 alert alert-info">'. $strMsg . '</div>';
+		}
+	?>
 	<div class="col-xs-4">
 	<?php 
 	while (have_posts()): 
@@ -116,7 +104,7 @@ $arrReferrals = get_referrals($intUserid);
 						</div>
 						<div class="admin-controls col-xs-4">					
 		    				<?php if( user_can($current_user, 'edit_posts') ): ?>	    					
-								<a href="<?php echo site_url('new-pay-in') . '?iid=' . $intUserid?>" class="btn btn-success col-xs-12">New Pay-in</a>
+								<a class="btn btn-success col-xs-12" data-toggle="modal" data-target="#payin-modal">New Pay-in</a>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -145,7 +133,6 @@ $arrReferrals = get_referrals($intUserid);
 									
 									$strPayoutDate = process_dates((int) $objPayoutData->payout_date);
 									echo '<tr class="po-'. $objPayoutData->id .'" data-class=".po-'. $objPayoutData->id .'">';									
-									//echo '<td>'. str_pad($objPayoutData->payin_id, 5, 0, STR_PAD_LEFT).'-'. $objPayoutData->id . '</td>';
 									echo '<td><p class="can_edit">'. $strPayoutDate .'</p><div class="edit-mode hidden"><input type="text" class="form-control payout-date" name="payout_date" value="'. $strPayoutDate .'"></div></td>';
 									echo '<td>'. $objPayoutData->amount .'</td>';
 									echo '<td>'. $objPayoutData->points .'</td>';
@@ -202,7 +189,7 @@ $arrReferrals = get_referrals($intUserid);
 								$arrCashStatus = process_status($objReferral->cash_commission_status);
 								$arrProductStatus = process_status($objReferral->product_commission_status);
 								
-								echo '<tr>';
+								echo '<tr class="rc-'. $objPayoutData->id .'" data-class=".rc-'. $objPayoutData->id .'">';
 								echo '<td>';
 								echo '<p>'. $strReferralId .'</p>';
 								echo '</td>';								
@@ -222,14 +209,14 @@ $arrReferrals = get_referrals($intUserid);
 								echo '<p>'. $arrProductStatus['name'] .'</p>';
 								echo '</td>';
 								echo '<td>';
-								echo '<p>'. $strReleaseDate .'</p>';
-								echo '<div class="edit-mode hidden"><input type="text" name="release_date" value="'. $strReleaseDate .'"></div>';
+								echo '<p class="can_edit">'. $strReleaseDate .'</p>';
+								echo '<div class="edit-mode hidden"><input type="text" name="release_date" class="form-control release_date" value="'. $strReleaseDate .'"></div>';
 								echo '</td>';
 								if( user_can($current_user, 'edit_posts') ):
 								echo "<td>
-										<a title='Edit' class='referral-edit'>edit</a>&nbsp;
-		    							<a title='Cancel' class='glyphicon glyphicon-ban-circle referral-cancel'></a>&nbsp;
-										<a title='Save' class='glyphicon glyphicon-floppy-disk referral-save disable-save'></a>&nbsp;
+										<a title='Edit' class='referral-edit'>edit</a>
+		    							<a title='Cancel' class='referral-cancel hidden'>cancel</a>
+										<a title='Save' class='referral-save hidden'>save</a>
 									  </td>";
 								endif;
 								echo '</tr>';
@@ -243,7 +230,7 @@ $arrReferrals = get_referrals($intUserid);
 	    		<div role="tabpanel" class="tab-pane fade" id="documents"></div>
 	  		</div>
 		</div>
-	</div>
+	</div>	
 </div>
 
 <script type="text/javascript">
@@ -253,8 +240,9 @@ jQuery(document).ready(function(){
 		"paging" : false,
 		"searching" : false
 	});
+	
 	jQuery("#payin_id").val(<?php echo $intPayinId;?>);
-	jQuery(".payout-date").datepicker({dateFormat: 'MM-dd-yy'});
+	jQuery(".payout-date, .release_date").datepicker({dateFormat: 'MM-dd-yy'});
 	
 	jQuery(".paginate_button").on("click", function(){
 		jQuery(".payout-date").datepicker({dateFormat: 'MM-dd-yy'});
@@ -309,25 +297,24 @@ jQuery(".payout-save").on('click', function(){
 			}
 		}
 	});
-	
-	jQuery(this).addClass('hidden');
-	jQuery(contentRow + " .payout-edit").removeClass('hidden');
-	jQuery(contentRow + " .payout-cancel").addClass('hidden');
-	
 });
 
 jQuery(".referral-edit").on('click', function(){
 	var contentRow = jQuery(this).parent().parent().data('class');
 	jQuery(contentRow + " div.edit-mode").removeClass('hidden');
 	jQuery(contentRow + " p.can_edit").addClass('hidden');
-	jQuery(contentRow + " .referral-save").removeClass('disable-save');
+	jQuery(contentRow + " .referral-save").removeClass('hidden');
+	jQuery(contentRow + " .referral-cancel").removeClass('hidden');
+	jQuery(this).addClass('hidden');	
 });
 	
 jQuery(".referral-cancel").on('click', function(){
 	var contentRow = jQuery(this).parent().parent().data('class');
 	jQuery(contentRow + " div.edit-mode").addClass('hidden');
 	jQuery(contentRow + " p").removeClass('hidden');
-	jQuery(contentRow + " .referral-save").addClass('disable-save');
+	jQuery(contentRow + " .referral-save").addClass('hidden');
+	jQuery(this).addClass('hidden');
+	jQuery(contentRow + " .referral-edit").removeClass('hidden');
 });
 
 </script>

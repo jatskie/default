@@ -53,6 +53,7 @@ if( $howes['layout']=='fullwide' ){
 </head>
 
 <body <?php body_class(); ?>>
+
 <!-- <div id="pageoverlay"></div> -->
 <div class="main-holder animsition">
 <div id="page" class="hfeed site">

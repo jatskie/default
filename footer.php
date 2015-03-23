@@ -64,6 +64,14 @@ if( $howes['layout']=='fullwide' ){
 	}
 	?>
 	
+	<?php
+		$pagename = get_query_var('pagename');
+		if("profile" == trim($pagename))
+		{	
+			include_once('satara/new-payin-modal.php');
+		}
+	?>
+	
 	<?php wp_footer(); ?>
 	
 </body>

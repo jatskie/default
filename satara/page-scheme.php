@@ -8,6 +8,11 @@
  * @subpackage Howes
  * @since Howes 1.0
  */
+if(is_user_logged_in() == false || false == user_can($current_user, 'edit_posts'))
+{
+	wp_safe_redirect(site_url());
+}
+
 get_header();
 
 if(isset($_POST) && $_POST['posttype'] != "")
@@ -41,6 +46,15 @@ if(isset($_POST) && $_POST['posttype'] != "")
 }
 
 $arrSchemes = get_payin_schemes(true);
+
+$arrCurrentScheme = array();
+$arrCurrentSchemes = get_payin_schemes(false);
+
+foreach ($arrCurrentSchemes as $scheme)
+{
+	$arrCurrentScheme = $scheme;
+}
+
 ?>
 <div class="scheme-container">
 	<form method="post" onsubmit="return validateForm()">
@@ -51,6 +65,7 @@ $arrSchemes = get_payin_schemes(true);
 			foreach ($arrSchemes as $arrScheme)
 			{
 				$arrUserData = get_user_by('ID', $arrScheme['created_by']);
+
 				echo '<option 
  							value="'.$arrScheme['value'].'"
  							data-rate="'. $arrScheme['rate'] .'"
@@ -64,50 +79,46 @@ $arrSchemes = get_payin_schemes(true);
 							data-created="'. $arrScheme['date_created'] .'"
 							data-modified="'. $arrScheme['modifed_by'] .'"
 							data-modifiedon="'. $arrScheme['date_modified'] .'"
- 					  >'.$arrScheme['name'].'</option>';
+ 					  >'. $arrScheme['description'] . ' ('. $arrScheme['name'].')</option>';
 			}
 			?>
 		</select>
 		<p>&nbsp;</p>
 		<h3>Investment Rates</h3>
 		<div class="row">
+			<div class="col-xs-12">
+				<label>Scheme Name</label>
+				<input type="text" name="description" id="description" class="form-control" value="<?php echo $arrCurrentScheme['description']?>">
+			</div>		
+
 			<div class="col-xs-4">
 				<label>Rate (%)</label>
-				<input type="text" name ="rate" id="rate" class="form-control" value=""/>
+				<input type="text" name ="rate" id="rate" class="form-control" value="<?php echo $arrCurrentScheme['rate']?>"/>
 			</div>
 			<div class="col-xs-4">
 				<label>Split</label>
-				<input type="text" name ="split" id="split" class="form-control" value=""/>
+				<input type="text" name ="split" id="split" class="form-control" value="<?php echo $arrCurrentScheme['split']?>"/>
 			</div>
 			<div class="col-xs-4">
 				<label>Points</label>
-				<input type="text" name ="points" id="points" class="form-control" value=""/>
+				<input type="text" name ="points" id="points" class="form-control" value="<?php echo $arrCurrentScheme['points']?>"/>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<label>Description</label>
-				<textarea name="description" id="description"></textarea>
-			</div>		
-		</div>
+		</div>		
 		<p>&nbsp;</p>
 		<h3>Referrer Commision Rates</h3>
 		<div class="row">
 			<div class="col-xs-6">
 				<label>Cash</label>
-				<input type="text" name ="referrer_cash_rate" id="referrer_cash_rate" class="form-control" value=""/>
+				<input type="text" name ="referrer_cash_rate" id="referrer_cash_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_cash_rate']?>"/>
 			</div>
 			<div class="col-xs-6">
 				<label>Product</label>
-				<input type="text" name ="referrer_product_rate" id="referrer_product_rate" class="form-control" value=""/>
+				<input type="text" name ="referrer_product_rate" id="referrer_product_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_product_rate']?>"/>
 			</div>
 		</div>
 		<p>&nbsp;</p>
-		<div class="col-xs-6">
-			<div class="checkbox">
-				<label><input type="checkbox" id="is_active_chk" /> Active?</label>
-				<input type="hidden" name="is_active" id="is_active" value="0"/>
-			</div>
+		<div class="col-xs-6">							
+				<input type="hidden" name="is_active" id="is_active" value="1"/>			
 		</div>		
 		<div class="row">
 			<p>&nbsp;</p>
@@ -126,19 +137,8 @@ $arrSchemes = get_payin_schemes(true);
 	</form>
 </div>
 <script type="text/javascript">
-	jQuery("input, textarea").attr("disabled", true);
-	
-	jQuery("#is_active_chk").on('click', function(){
-		var myState = jQuery(this).attr('checked');
-		if(myState == 'checked')
-		{
-			jQuery("#is_active").val(1);
-		}
-		else
-		{
-			jQuery("#is_active").val(0);
-		}		
-	});
+
+	jQuery("#scheme_id").val(<?php echo $arrCurrentScheme['value'] ?>);
 	
 	jQuery("#scheme_id").on('change', function(){
 		var SelectedScheme = jQuery(this).children("option:selected");
@@ -204,7 +204,7 @@ $arrSchemes = get_payin_schemes(true);
 		jQuery("#is_active").val('0');
 		jQuery("#posttype").val('add');
 		jQuery("input, textarea").attr("disabled", false);
-		jQuery("#rate").focus();
+		jQuery("#description").focus();
 		
 	});
 
