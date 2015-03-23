@@ -11054,4 +11054,9 @@ div.ptp-most-popular {
 {
 	border: none;
 }
+
+table#referral-table th
+{
+	font-size: 9px;
+}
 /****** END of style.css ******/
