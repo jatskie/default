@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'thememount-meteocons';
+  src: url('../font/thememount-meteocons.eot?55837515');
+  src: url('../font/thememount-meteocons.eot?55837515#iefix') format('embedded-opentype'),
+       url('../font/thememount-meteocons.woff?55837515') format('woff'),
+       url('../font/thememount-meteocons.ttf?55837515') format('truetype'),
+       url('../font/thememount-meteocons.svg?55837515#thememount-meteocons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'thememount-meteocons';
+    src: url('../font/thememount-meteocons.svg?55837515#thememount-meteocons') format('svg');
+  }
+}
+*/
+ 
+ [class^="tmicon-meteocons-"]:before, [class*=" tmicon-meteocons-"]:before {
+  font-family: "thememount-meteocons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.tmicon-meteocons-windy-rain-inv:before { content: '\e800'; } /* '' */
+.tmicon-meteocons-snow-inv:before { content: '\e801'; } /* '' */
+.tmicon-meteocons-snow-heavy-inv:before { content: '\e802'; } /* '' */
+.tmicon-meteocons-hail-inv:before { content: '\e803'; } /* '' */
+.tmicon-meteocons-clouds-inv:before { content: '\e804'; } /* '' */
+.tmicon-meteocons-clouds-flash-inv:before { content: '\e805'; } /* '' */
+.tmicon-meteocons-temperature:before { content: '\e806'; } /* '' */
+.tmicon-meteocons-compass:before { content: '\e807'; } /* '' */
+.tmicon-meteocons-na:before { content: '\e808'; } /* '' */
+.tmicon-meteocons-celcius:before { content: '\e809'; } /* '' */
+.tmicon-meteocons-fahrenheit:before { content: '\e80a'; } /* '' */
+.tmicon-meteocons-clouds-flash-alt:before { content: '\e80b'; } /* '' */
+.tmicon-meteocons-sun-inv:before { content: '\e80c'; } /* '' */
+.tmicon-meteocons-moon-inv:before { content: '\e80d'; } /* '' */
+.tmicon-meteocons-cloud-sun-inv:before { content: '\e80e'; } /* '' */
+.tmicon-meteocons-cloud-moon-inv:before { content: '\e80f'; } /* '' */
+.tmicon-meteocons-cloud-inv:before { content: '\e810'; } /* '' */
+.tmicon-meteocons-cloud-flash-inv:before { content: '\e811'; } /* '' */
+.tmicon-meteocons-drizzle-inv:before { content: '\e812'; } /* '' */
+.tmicon-meteocons-rain-inv:before { content: '\e813'; } /* '' */
+.tmicon-meteocons-windy-inv:before { content: '\e814'; } /* '' */
+.tmicon-meteocons-sunrise:before { content: '\e815'; } /* '' */
+.tmicon-meteocons-sun:before { content: '\e816'; } /* '' */
+.tmicon-meteocons-moon:before { content: '\e817'; } /* '' */
+.tmicon-meteocons-eclipse:before { content: '\e818'; } /* '' */
+.tmicon-meteocons-mist:before { content: '\e819'; } /* '' */
+.tmicon-meteocons-wind:before { content: '\e81a'; } /* '' */
+.tmicon-meteocons-snowflake:before { content: '\e81b'; } /* '' */
+.tmicon-meteocons-cloud-sun:before { content: '\e81c'; } /* '' */
+.tmicon-meteocons-cloud-moon:before { content: '\e81d'; } /* '' */
+.tmicon-meteocons-fog-sun:before { content: '\e81e'; } /* '' */
+.tmicon-meteocons-fog-moon:before { content: '\e81f'; } /* '' */
+.tmicon-meteocons-fog-cloud:before { content: '\e820'; } /* '' */
+.tmicon-meteocons-fog:before { content: '\e821'; } /* '' */
+.tmicon-meteocons-cloud:before { content: '\e822'; } /* '' */
+.tmicon-meteocons-cloud-flash:before { content: '\e823'; } /* '' */
+.tmicon-meteocons-cloud-flash-alt:before { content: '\e824'; } /* '' */
+.tmicon-meteocons-drizzle:before { content: '\e825'; } /* '' */
+.tmicon-meteocons-rain:before { content: '\e826'; } /* '' */
+.tmicon-meteocons-windy:before { content: '\e827'; } /* '' */
+.tmicon-meteocons-windy-rain:before { content: '\e828'; } /* '' */
+.tmicon-meteocons-snow:before { content: '\e829'; } /* '' */
+.tmicon-meteocons-snow-alt:before { content: '\e82a'; } /* '' */
+.tmicon-meteocons-snow-heavy:before { content: '\e82b'; } /* '' */
+.tmicon-meteocons-hail:before { content: '\e82c'; } /* '' */
+.tmicon-meteocons-clouds:before { content: '\e82d'; } /* '' */
+.tmicon-meteocons-clouds-flash:before { content: '\e82e'; } /* '' */

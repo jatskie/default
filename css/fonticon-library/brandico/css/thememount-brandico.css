@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'thememount-brandico';
+  src: url('../font/thememount-brandico.eot?35645686');
+  src: url('../font/thememount-brandico.eot?35645686#iefix') format('embedded-opentype'),
+       url('../font/thememount-brandico.woff?35645686') format('woff'),
+       url('../font/thememount-brandico.ttf?35645686') format('truetype'),
+       url('../font/thememount-brandico.svg?35645686#thememount-brandico') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'thememount-brandico';
+    src: url('../font/thememount-brandico.svg?35645686#thememount-brandico') format('svg');
+  }
+}
+*/
+ 
+ [class^="tmicon-brandico-"]:before, [class*=" tmicon-brandico-"]:before {
+  font-family: "thememount-brandico";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.tmicon-brandico-facebook-3:before { content: '\e800'; } /* '' */
+.tmicon-brandico-facebook-rect:before { content: '\e801'; } /* '' */
+.tmicon-brandico-twitter:before { content: '\e802'; } /* '' */
+.tmicon-brandico-twitter-bird:before { content: '\e803'; } /* '' */
+.tmicon-brandico-vimeo:before { content: '\e804'; } /* '' */
+.tmicon-brandico-vimeo-rect:before { content: '\e805'; } /* '' */
+.tmicon-brandico-tumblr:before { content: '\e806'; } /* '' */
+.tmicon-brandico-tumblr-rect:before { content: '\e807'; } /* '' */
+.tmicon-brandico-googleplus-rect:before { content: '\e808'; } /* '' */
+.tmicon-brandico-github-text:before { content: '\e809'; } /* '' */
+.tmicon-brandico-github:before { content: '\e80a'; } /* '' */
+.tmicon-brandico-skype:before { content: '\e80b'; } /* '' */
+.tmicon-brandico-icq:before { content: '\e80c'; } /* '' */
+.tmicon-brandico-yandex:before { content: '\e80d'; } /* '' */
+.tmicon-brandico-yandex-rect:before { content: '\e80e'; } /* '' */
+.tmicon-brandico-vkontakte-rect:before { content: '\e80f'; } /* '' */
+.tmicon-brandico-odnoklassniki:before { content: '\e810'; } /* '' */
+.tmicon-brandico-odnoklassniki-rect:before { content: '\e811'; } /* '' */
+.tmicon-brandico-friendfeed:before { content: '\e812'; } /* '' */
+.tmicon-brandico-friendfeed-rect:before { content: '\e813'; } /* '' */
+.tmicon-brandico-blogger:before { content: '\e814'; } /* '' */
+.tmicon-brandico-blogger-rect:before { content: '\e815'; } /* '' */
+.tmicon-brandico-deviantart:before { content: '\e816'; } /* '' */
+.tmicon-brandico-jabber:before { content: '\e817'; } /* '' */
+.tmicon-brandico-lastfm:before { content: '\e818'; } /* '' */
+.tmicon-brandico-lastfm-rect:before { content: '\e819'; } /* '' */
+.tmicon-brandico-linkedin:before { content: '\e81a'; } /* '' */
+.tmicon-brandico-linkedin-rect:before { content: '\e81b'; } /* '' */
+.tmicon-brandico-picasa:before { content: '\e81c'; } /* '' */
+.tmicon-brandico-wordpress:before { content: '\e81d'; } /* '' */
+.tmicon-brandico-instagram:before { content: '\e81e'; } /* '' */
+.tmicon-brandico-instagram-filled:before { content: '\e81f'; } /* '' */
+.tmicon-brandico-diigo:before { content: '\e820'; } /* '' */
+.tmicon-brandico-box:before { content: '\e821'; } /* '' */
+.tmicon-brandico-box-rect:before { content: '\e822'; } /* '' */
+.tmicon-brandico-tudou:before { content: '\e823'; } /* '' */
+.tmicon-brandico-youku:before { content: '\e824'; } /* '' */
+.tmicon-brandico-win8:before { content: '\e825'; } /* '' */
+.tmicon-brandico-amex:before { content: '\e826'; } /* '' */
+.tmicon-brandico-discover:before { content: '\e827'; } /* '' */
+.tmicon-brandico-visa:before { content: '\e828'; } /* '' */
+.tmicon-brandico-mastercard:before { content: '\e829'; } /* '' */
+.tmicon-brandico-houzz:before { content: '\e82a'; } /* '' */
+.tmicon-brandico-bandcamp:before { content: '\e82b'; } /* '' */
+.tmicon-brandico-codepen:before { content: '\e82c'; } /* '' */

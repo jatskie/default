@@ -1,0 +1,1 @@
+jQuery(".thememount-icon-selector").custom_select2(); 

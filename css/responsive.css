@@ -1,0 +1,502 @@
+@media (max-width: 1200px){	
+/*------------------------------------------------------------------
+[Table of contents]
+
+
+
+1. Navigation
+2. ThemeMount Team page 
+-------------------------------------------------------------------*/	
+	
+	
+
+  
+ /**
+ *  1. ThemeMount Team page 
+ * ----------------------------------------------------------------------------
+ */
+ 	
+	.thememount-fbar-box .row .col-lg-3:nth-child(1) {
+   		width: 24% !important;
+	}
+	.thememount-fbar-box .row .col-lg-3:nth-child(4) {
+		width: 16% !important;
+	}
+	.thememount-fbar-box .row .col-lg-3:nth-child(2), 
+	.thememount-fbar-box .row .col-lg-3:nth-child(3) {
+		width: 30% !important;
+	}	
+	.thememount-content-team-search-box h2 {		
+		font-size: 18px;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(1) {
+		width: 25% !important;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(2), 
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(3) {
+		width: 27% !important;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(4) {
+		width: 21% !important;
+	}
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2) {
+		width: 61% !important;
+	}
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3) {
+		width: 15% !important;
+	}
+	.thememount-fbar-box .search_field select, 
+	.thememount-content-team-search-box .search_field select{
+		width: 124%;
+	}
+	.thememount-content-team-search-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2){
+		width: 54% !important;
+	}
+	.thememount-content-team-search-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3) {
+		width: 20% !important;
+	}
+	
+	/*No image setting*/
+	.thememount-page-full-width .thememount-blog-col-two .thememount-proj-noimage{
+			height: 253px;
+			line-height: 253px;
+	}
+	.thememount-sidebar-left .thememount-blog-col-two .thememount-proj-noimage, 
+	.thememount-sidebar-right .thememount-blog-col-two .thememount-proj-noimage {
+		height: 185px;
+		line-height: 185px;
+	}	
+	.thememount-page-full-width .thememount-blog-col-three .thememount-proj-noimage{
+		height: 165px;
+		line-height: 165px;
+	}
+	.thememount-sidebar-left .thememount-blog-col-three .thememount-proj-noimage,
+	.thememount-sidebar-right .thememount-blog-col-three .thememount-proj-noimage{	
+		height: 116px;
+		line-height: 116px;
+	}
+	.thememount-page-full-width .thememount-blog-col-four .thememount-proj-noimage{
+		height: 120px;
+		line-height: 120px;
+	}
+	
+	
+	.thememount-wide.thememount-sticky-footer .site-footer{
+		position:inherit;
+	}
+	.thememount-wide.thememount-sticky-footer .site-main{
+		margin-bottom: auto !important;
+	}
+	
+}
+
+@media (max-width: 995px){		
+
+/*------------------------------------------------------------------
+[Table of contents]
+
+
+1. Header Section
+2. Navigation
+3. Body Content
+4. ThemeMount Team page 
+-------------------------------------------------------------------*/	
+
+
+/**
+ * 1. Header Section
+ * ----------------------------------------------------------------------------
+ */
+	/*Topbar menu*/
+	.top-contact li:nth-child(3) {
+		display:none;
+	}
+ 	.thememount-flexible-width-left, .thememount-flexible-width-right{
+		display:block;
+	}	
+	.thememount-fbar-box-w .widget {	
+		margin-bottom: 22px;
+	}
+ 
+ 	.thememount-header-style-3 #navbar .main-navigation{
+		width: 750px;
+	}
+ 
+ 
+
+/**
+ * 2. Navigation
+ * ----------------------------------------------------------------------------
+ */
+
+	/* when  header dark */	
+	/*.header-text-color-white .toggled-on ul.nav-menu > li:hover > a, 	
+	.header-text-color-white .toggled-on ul.nav-menu li li:hover > a, 	
+	.header-text-color-white .toggled-on div.nav-menu > ul > li:hover > a, 	
+	.header-text-color-white .toggled-on div.nav-menu > ul li li:hover > a,	
+	.header-text-color-white .toggled-on ul.nav-menu li li a	{		
+		color: rgba(255, 255, 255, 0.95);
+	}*/	
+
+
+/**
+ * 3. Body Content 
+ * ----------------------------------------------------------------------------
+ */	
+
+	.wpb_call_to_action .table-row {
+		display: block;
+	}
+	.wpb_call_to_action {
+		display: block;
+	}
+	.cta_align_left .thememount-cta-content-wrapper, 
+	.cta_align_left .thememount-cta-button-wrapper, 
+	.cta_align_right .thememount-cta-content-wrapper, 
+	.cta_align_right .thememount-cta-button-wrapper {
+		display:block;
+		text-align: center;
+	}
+	.cta_align_left .thememount-cta-button-wrapper, 
+	.cta_align_right .thememount-cta-button-wrapper {
+		margin-top: 10px;
+		display: block;
+		padding-left:0px;
+	}	
+	.headingblock, 
+	.breadcrumbblock {
+		display: table-cell;
+	}	
+	.footer .widget {
+		margin-bottom: 0px;
+	}	
+	.site-footer .widget-area:last-child {
+		margin-bottom: 40px;
+	}	
+	.site-footer .widget-area {
+		min-height: 350px;
+	}	
+	body.thememount-sidebar-right .site-main #primary.content-area,
+	body.thememount-sidebar-right.tax-team_group .site-main #primary.content-area,
+	.tax-team_group .site-main .thememount-team-group-left {
+		padding-right: 15px!important;
+		border-right: 0px;
+		margin-top: 0px;
+	}
+	#sidebar-right .widget{
+		padding-left:0px;
+	}		
+	.site-main #sidebar-left.sidebar{
+		border-right: 0px;
+	}	
+	.sidebar .search-form:after{
+		display:none;
+	}		
+	.site-main #sidebar-right.sidebar{
+		border-left: 0px;
+	}	
+	#sidebar-left .widget{
+		padding-right: 0px;
+	}	
+
+	.thememount-twitterbar-list.owl-carousel .owl-wrapper-outer{
+		width: 100%;
+	}
+	
+	.thememount-post-right .tm-date-wrapper {
+		display:inline-block;
+		color: #999;
+	}
+	.thememount-post-left{
+		display:none;
+	}
+	.thememount-post-right{
+		margin-left:0px;
+	}
+	
+	
+/**
+ * 4. ThemeMount Team page
+ * ----------------------------------------------------------------------------
+ */	
+
+	.tax-team_group .site-main .thememount-team-group-right {
+		padding-left: 15px !important;
+		border-left: none;
+		margin-left: 0px;
+		margin-top: 60px;
+	}
+	.tax-team_group .site-main .thememount-team-group-left{
+		padding-top:0px;
+	}	
+	.thememount-fbar-box .row .col-lg-3:nth-child(2), 
+	.thememount-fbar-box .row .col-lg-3:nth-child(3) {
+		width: 24% !important;
+	}
+	.thememount-fbar-box .row .col-lg-3:nth-child(1) {
+		width: 32% !important;
+	}
+	.thememount-fbar-box .row .col-lg-3:nth-child(4) {
+		width: 20% !important;
+	}	
+	.thememount-content-team-search-box h2 {		
+		font-size: 18px;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(1) {
+		width: 26% !important;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(2), 
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(3) {
+		width: 27% !important;
+	}
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(4) {
+		width: 20% !important;
+	}
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-3:nth-child(1) {
+		width: 30% !important;
+	}	
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2){
+		width: 51% !important;
+	}	
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3){
+		width: 19% !important;
+	}	
+	.selectstyle {
+		margin-bottom: 15px !important;
+	}
+		
+	/*No image setting*/
+	.thememount-page-full-width .thememount-blog-col-two .thememount-proj-noimage,
+	.thememount-page-full-width .thememount-blog-col-three .thememount-proj-noimage,
+	.thememount-page-full-width .thememount-blog-col-four .thememount-proj-noimage{
+			height: 194px;
+			line-height: 194px;
+	}
+	.thememount-sidebar-left .thememount-blog-col-two .thememount-proj-noimage, 
+	.thememount-sidebar-right .thememount-blog-col-two .thememount-proj-noimage {
+		height: 185px;
+		line-height: 185px;
+	}	
+	.thememount-sidebar-left .thememount-blog-col-three .thememount-proj-noimage,
+	.thememount-sidebar-right .thememount-blog-col-three .thememount-proj-noimage{	
+		height: 190px;
+		line-height: 190px;
+	}
+
+	
+/**
+ * 4. Sidebar setting
+ * ----------------------------------------------------------------------------
+ */	
+ 
+ 
+	 body.thememount-sidebar-left .site-main #primary.content-area {
+		padding-left: 15px!important;
+		border-left: none;
+	}
+ 
+	body.thememount-sidebar-bothright .site-main #primary.content-area {
+		padding-right: 15px!important;
+		border-right: none;
+		margin-right: 0px;
+	}	
+	body.thememount-sidebar-bothright .site-main #sidebar-left .widget{
+		padding-left: 0px;
+	}	
+	body.thememount-sidebar-bothright .site-main #sidebar-left.sidebar {
+		border-right: none;
+		border-left: none;
+	}	
+	body.thememount-sidebar-bothright .site-main #sidebar-left.sidebar,
+	body.thememount-sidebar-bothleft .site-main #sidebar-right.sidebar {
+		border-right: none;
+		border-left: none;
+	}
+	body.thememount-sidebar-bothleft .site-main #primary.content-area {
+		padding-left: 15px!important;
+		border-left: none;
+	}
+	body.thememount-sidebar-bothleft .site-main #sidebar-right .widget {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	body.thememount-sidebar-both .site-main #primary.content-area {
+		padding-right: 15px!important;
+		border-right: none;
+		margin-right: 0px;
+		padding-left: 15px!important;
+		border-left: none;
+		margin-left: 0px;
+	}
+	body.thememount-sidebar-bothleft.tm-dark-layout .site-main #sidebar-right.sidebar, 
+	body.thememount-sidebar-bothright.tm-dark-layout .site-main #primary.content-area, 
+	body.thememount-sidebar-both.tm-dark-layout .site-main #primary.content-area, 
+	body.thememount-sidebar-right.tm-dark-layout .site-main #primary.content-area, 
+	.tm-dark-layout .site-main #sidebar-left.sidebar {
+		border-right: none;
+	}
+	
+	body.thememount-sidebar-bothleft.tm-dark-layout .site-main #primary.content-area, 
+	body.thememount-sidebar-left.tm-dark-layout .site-main #primary.content-area, 
+	body.thememount-sidebar-both.tm-dark-layout .site-main #primary.content-area, 
+	.tm-dark-layout .site-main #sidebar-right.sidebar {
+		border-left: none;
+	}	
+	body.thememount-sidebar-both .site-main #sidebar-left.sidebar,
+	body.thememount-sidebar-both .site-main #primary.content-area {
+		margin-left: 0% !important;
+	}
+	
+	
+	
+	
+}
+
+
+@media only screen and (max-width: 767px){
+	
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. Header Section
+2. ThemeMount Team page 
+3. Body Content
+-------------------------------------------------------------------*/	
+	
+/**
+ * 1. Header Section
+ * ----------------------------------------------------------------------------
+ */		
+	.thememount-fbar-box .search_field select, 
+	.thememount-content-team-search-box .search_field select{
+		width: 110%;
+	}
+	.header-inner{
+		height:auto;
+	}	
+	.thememount-tb-content.thememount-flexible-width-left,
+	.thememount-tb-social.thememount-flexible-width-right{
+		display:block;
+		text-align:center;
+	}
+
+	.thememount-topbar .social-icons{		
+		text-align:center;
+	}		
+	.thememount-team-box {
+		margin-bottom:30px;
+	}	
+	.headingblock, 
+	.breadcrumbblock {
+		display:block;
+		text-align:center;
+	}
+	.thememount-titlebar-main .breadcrumb-wrapper {
+		text-align:center;
+	}	
+	.thememount-header-style-3 #navbar .main-navigation{
+		width: auto;
+	}	
+	.w-search-input {
+		width: 380px;
+		height: 71px;
+	}
+	.w-search-input input {
+		width: 360px;	
+		font-size: 28px;
+		height: 33px;
+	}	
+	
+	
+/**
+ * 2. ThemeMount Team page 
+ * ----------------------------------------------------------------------------
+ */ 
+	.thememount-fbar-box .row .col-lg-3:nth-child(1),
+	.thememount-fbar-box .row .col-lg-3:nth-child(2), 
+	.thememount-fbar-box .row .col-lg-3:nth-child(3),
+	.thememount-fbar-box .row .col-lg-3:nth-child(4),	
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(1),
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(2), 
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(3),
+	.thememount-content-team-search-box .row .col-lg-3:nth-child(4),
+	.thememount-fbar-box .thememount-team-form-no-group  .row .col-lg-3:nth-child(1), 
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2), 
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3), 
+	.thememount-content-team-search-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2),
+	.thememount-content-team-search-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3){
+		width: 100% !important;
+	}
+	.thememount-fbar-box .row .col-lg-3,
+	.thememount-content-team-search-box  .row .col-lg-3,
+	.thememount-fbar-box .thememount-team-form-no-group  .row .col-lg-3:nth-child(1),
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2),
+	.thememount-fbar-box .thememount-team-form-no-group .row .col-lg-3:nth-child(3),
+	.thememount-content-team-search-box .thememount-team-form-no-group .row .col-lg-6:nth-child(2) {
+		margin-bottom:10px;
+	}
+	
+/**
+ * 3. Body Content
+ * ----------------------------------------------------------------------------
+ */		
+	.thememount-blog-boxes-wrapper img.wp-post-image{
+		width:100%;
+	}
+	.wpb_content_element, .rspacer, .wpb_column > .wpb_wrapper > .inside, .wpb_column > .wpb_wrapper > .wpb_content_element {
+		margin-bottom: 25px;
+	}	
+	.site-footer .widget-area {
+		min-height:inherit;
+	}	
+	.site-info,
+	.thememount_footer_menu {
+		text-align:center;
+	}
+	.footer .social-icons{
+		display:block;	
+	}
+
+	.thememount-row-fullwidth-true .grid_section{
+		display: block;		
+	}
+	.thememount-row-fullwidth-true.full-colum-height-widht > .grid_section > .vc_column_container{
+		display: block;
+		width: 100%;
+	}
+	.thememount-row-fullwidth-true.full-colum-height-widht > .grid_section > .vc_column_container img{
+		display:block;
+	}	
+	.thememount-row-fullwidth-true.full-colum-height-widht > .grid_section > .vc_column_container{
+		background-image:none !important;
+	}
+	
+
+/* flexslider */		
+	.flex-caption {
+		bottom: 0;
+	}	
+	
+
+}
+@media only screen and (max-width: 479px){
+	.top-contact li{
+		display:block;
+	}
+	.top-contact li,
+	.top-contact li:first-child{
+		border:none;
+	}
+	.portfolio-wrapper .portfolio-box {
+		width: 100%;
+	}
+	.owl-wrapper .portfolio-box {
+		margin:0px;
+	}	
+	.owl-wrapper .owl-item > article {
+		margin: 0px;
+		padding: 0px 15px;
+	}
+
+}

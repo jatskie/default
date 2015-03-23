@@ -1,0 +1,16 @@
+/*
+Styles for older IE versions (previous to IE9).
+*/
+
+
+.productimagebox{
+	display:block;
+}
+.productimagebox a.add_to_cart_button{
+	margin-left:-67px !important;
+	margin-top:-37px !important;
+	opacity:0;
+}
+.productbox:hover a.add_to_cart_button{
+	opacity:1;
+}

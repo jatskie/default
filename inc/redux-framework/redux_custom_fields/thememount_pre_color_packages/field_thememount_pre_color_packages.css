@@ -1,0 +1,155 @@
+
+/* Predefined Color Packages */
+.thememount-pre-color-packages{
+	width: 90%;
+}
+.thememount-pre-color-changeskincolor{
+	border-top: 1px solid rgb(222, 222, 222);
+	padding-top: 10px;
+	margin-top: 20px;
+	text-align: left;
+}
+.thememount-pre-color-package-list li a {
+	display: block;
+	cursor: pointer;
+	border-radius: 2px;
+	margin: 3px;
+	text-align: center;
+	font-size:12px;
+}
+.thememount-pre-color-links-wrapper{
+	border: 1px solid #C4C4C4;
+	padding: 15px;
+	margin: 0 auto;
+	text-align: center;
+	border-radius: 5px;
+}
+.thememount-pre-color-package-list li a:hover {
+	color: #000000;
+}
+.thememount-pre-color-package-list li a img{
+	-webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+	width: 100px;
+	max-width: 100px;
+	height: auto;
+	display: block;
+}
+.thememount-pre-color-package-list {
+	list-style: none;
+	overflow: hidden;
+	padding: 0px;
+	/*width: 220px;*/
+	margin: 0 auto;
+	display: inline-block;
+}
+.thememount-pre-color-package-list li {
+	float: left;
+	margin: 5px;
+}
+/*.thememount-pre-color-package-list li.thememount-pre-color-link-1 a {
+	background-image: url('images/dark1.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-2 a {
+	background-image: url('images/dark2.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-3 a {
+	background-image: url('images/dark3.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-4 a {
+	background-image: url('images/dark4.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-5 a {
+	background-image: url('images/dark5.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-6 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-7 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-8 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-9 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-10 a {
+	background-image: url('images/white-preset.png');
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-1 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-6 a {
+	background-color: #e85e16;
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-2 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-7 a {
+	background-color: #dd4c42;
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-3 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-8 a {
+	background-color: #c7a589;
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-4 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-9 a {
+	background-color: #21c2f8;
+}
+.thememount-pre-color-package-list li.thememount-pre-color-link-5 a,
+.thememount-pre-color-package-list li.thememount-pre-color-link-10 a {
+	background-color: #d0a825;
+}*/
+.thememount-pre-color-package-note{
+	background: rgb(231, 255, 226);
+	border: 1px solid rgb(190, 255, 162);
+	padding: 5px 15px;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+.thememount-pre-color-package-note h4{
+	margin:3px 0 5px 0;
+}
+
+
+
+#changeskincolor-link{
+	background: transparent url('images/checkbox.png') no-repeat 0 0;
+	padding-left: 24px;
+	padding-bottom: 0px;
+	height: 16px;
+	font-size: 13px;
+	overflow: hidden;
+	display: inline-block;
+	transition: all 0.4s ease;
+}
+
+a#changeskincolor-link:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#changeskincolor-link.deactive{
+	background: transparent url('images/checkbox.png') no-repeat 0 bottom;
+}
+
+.thememount-pre-color-thumbwrapper{
+	position: relative;
+	display: block;
+	margin-bottom: 6px;
+}
+.thememount-pre-color-thumbwrapper .tm-pc-over{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(108, 108, 108, 0.85);
+	opacity: 0;
+	transition: all 0.2s ease;
+}
+.thememount-pre-color-thumbwrapper .tm-pc-over > span{
+	background: white;
+	display: block;
+	position: absolute;
+	width: 100%;
+	bottom: 10px;
+	color: rgb(35, 158, 181);
+	font-weight: bold;
+}
+
+.thememount-pre-color-package-list li a:hover .tm-pc-over{
+	opacity: 1;
+	transition: all 0.2s ease;
+}
+
