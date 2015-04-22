@@ -68,13 +68,25 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 	endwhile;
 	?>
 	</div>
-	<div class="col-xs-8">
+	<div class="col-xs-8">	 
 		<div class="dashboard row">
 			<div class="col-xs-3">
-			<a class="btn btn-primary dashboard-btn">
-		    <?php echo "P" . get_total_investment($intUserid); ?>
-		    </a>
-		    <h5>Investment</h5>
+				<a class="btn btn-primary dashboard-btn">
+		    		<?php echo "P" . get_total_investment($intUserid); ?>
+		    	</a>
+		    	<h5>Investment</h5>
+		    </div>
+		    <div class="col-xs-3">
+				<a class="btn btn-warning dashboard-btn">
+		   			<?php echo "P" . get_total_cash_commission($intUserid); ?>
+		    	</a>
+		    	<h5>Commission</h5>
+		    </div>
+		    <div class="col-xs-3">
+				<a class="btn btn-success dashboard-btn">
+		   			<?php echo get_total_points($intUserid); ?>
+		    	</a>
+		    	<h5>Points</h5>
 		    </div>
 		</div>
 		<div role="tabpanel">
@@ -170,13 +182,12 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 							<thead>
 								<tr>
 									<th>Control #</th>										
-									<th>Referree</th>
-									<th>Cash</th>
-									<th>Status</th>
-									<th>Product</th>
-									<th>Status</th>
-									<th>Release Date</th>
+									<th>Referree</th>									
 									<?php if( user_can($current_user, 'edit_posts') ): ?>
+									<th>Cash</th>									
+									<th>Product</th>
+									<th>Tax</th>									
+									<th>Release Date</th>									
 									<th>Action</th>
 									<?php endif; ?>
 								</tr>
@@ -198,23 +209,20 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 								echo '<td>';
 								echo '<p>'. $objReferree->display_name .'</p>';
 								echo '</td>';
+								if( user_can($current_user, 'edit_posts') ):
 								echo '<td>';
 								echo '<p>'. $objReferral->cash_commission .'</p>';
-								echo '</td>';
-								echo '<td>';
-								echo '<p>'. $arrCashStatus['name'] .'</p>';
-								echo '</td>';
+								echo '</td>';								
 								echo '<td>';
 								echo '<p>'. $objReferral->product_commission .'</p>';
 								echo '</td>';
 								echo '<td>';
-								echo '<p>'. $arrProductStatus['name'] .'</p>';
+								echo '<p>'. $objReferral->tax .'</p>';
 								echo '</td>';
 								echo '<td>';
 								echo '<p class="can_edit">'. $strReleaseDate .'</p>';
 								echo '<div class="edit-mode hidden"><input type="text" name="release_date" class="form-control release_date" value="'. $strReleaseDate .'"></div>';
-								echo '</td>';
-								if( user_can($current_user, 'edit_posts') ):
+								echo '</td>';								
 								echo "<td>
 										<a title='Edit' class='referral-edit'>edit</a>
 		    							<a title='Cancel' class='referral-cancel hidden'>cancel</a>
@@ -252,7 +260,11 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 	    				</tbody>
 	    			</table>
 	    		</div>
-	    		<div role="tabpanel" class="tab-pane fade" id="documents"></div>
+	    		<div role="tabpanel" class="tab-pane fade" id="documents">
+	    		<?php 
+	    			echo do_shortcode("[rtmedia_uploader]");
+	    		?>
+	    		</div>
 	  		</div>
 		</div>
 	</div>	

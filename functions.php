@@ -2320,6 +2320,7 @@ function install_satarah_tables()
 				  `cash_commission_status` int(11),
 				  `product_commission` float(9,2),
 				  `product_commission_status` int(11),
+				  `tax` float(9,2),
 				  `release_date` int(11),
 				  PRIMARY KEY(`id`)
 				)
@@ -2711,8 +2712,9 @@ function process_referral($aArrData)
 	global $wpdb;
 	$strReferralTable = $wpdb->prefix . "satarah_referral";	
 	
-	$intCashCommission = $aArrData['referree_invesment'] * ($aArrData['referrer_cash_rate'] / 100);
-	$intProductCommission = $aArrData['referree_invesment'] * ($aArrData['referrer_product_rate'] / 100);
+	$intCashCommission = $aArrData['referree_invesment'] * ($aArrData['referrer_cash_rate'] / 100) * .7;
+	$intProductCommission = $aArrData['referree_invesment'] * ($aArrData['referrer_product_rate'] / 100) * .2;
+	$intTaxRate = $aArrData['referree_invesment'] * ($aArrData['referrer_cash_rate'] / 100) * .1;
 	
 	if(1 == $aArrData['type'])
 	{
@@ -2730,6 +2732,7 @@ function process_referral($aArrData)
 		'cash_commission_status' => $intStatus,
 		'product_commission' => $intProductCommission,
 		'product_commission_status' => $intStatus,
+		'tax' => $intTaxRate,
 		'release_date' => 0		
 	);
 	
@@ -2791,8 +2794,44 @@ function get_total_investment($aIntUserid)
 function get_total_points($aIntUserid)
 {
 	global $wpdb;
+	$strPayinTable = $wpdb->prefix . "satarah_payin";
 	$strPayinHistoryTable = $wpdb->prefix . "satarah_payin_history";
 	
+	$arrResults = $wpdb->get_results("SELECT SUM(ph.points) FROM $strPayinHistoryTable ph INNER JOIN $strPayinTable p ON ph.payin_id = p.id WHERE p.userid = $aIntUserid");
+	
+	if(empty($arrResults))
+	{
+		return number_format(0,2);
+	}
+	
+	foreach ($arrResults as $objResult)
+	{
+		foreach ($objResult as $intPoints)
+		{
+			return $intPoints;
+		}
+	}	
+}
+
+function get_total_cash_commission($aIntUserid)
+{
+	global $wpdb;
+	$strReferralTable = $wpdb->prefix . "satarah_referral";
+	
+	$arrResults = $wpdb->get_results("SELECT SUM(cash_commission) FROM $strReferralTable WHERE referrer = $aIntUserid");
+	
+	if(empty($arrResults))
+	{
+		return number_format(0,2);
+	}
+	
+	foreach ($arrResults as $objResult)
+	{
+		foreach ($objResult as $intResult)
+		{
+			return number_format($intResult, 2);
+		}
+	}
 }
 
 function get_payout_timeframe($aIntUserid)

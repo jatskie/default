@@ -106,7 +106,7 @@ foreach ($arrSchemes as $scheme)
 							?>
 						</select>
 						<div class="row">
-							<div class="col-xs-6">
+							<div class="col-xs-4">
 								<span class="modal-label">Cash Rate</span>
 							    <div class="input-group">
 							      	<input type="text" name="referrer_cash_rate" id="referrer_cash_rate" class="form-control" aria-label="rate" value="<?php echo $arrScheme['referrer_cash_rate']?>">
@@ -115,10 +115,19 @@ foreach ($arrSchemes as $scheme)
 							      	</span>
 							    </div>
 							</div>
-						    <div class="col-xs-6">
+						    <div class="col-xs-4">
 							    <span class="modal-label">Product Rate</span>
 							    <div class="input-group">
 							      	<input type="text" name="referrer_product_rate" id="referrer_product_rate" class="form-control" aria-label="split" value="<?php echo $arrScheme['referrer_product_rate']?>">
+							      	<span class="input-group-addon">
+							        	%
+							      	</span>
+							    </div>
+							</div>
+							<div class="col-xs-4">
+								<span class="modal-label">Tax Rate</span>
+							    <div class="input-group">
+							      	<input type="text" name="tax_rate" id="tax_rate" class="form-control" aria-label="rate" value="10.00" disabled>
 							      	<span class="input-group-addon">
 							        	%
 							      	</span>
