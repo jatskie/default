@@ -212,23 +212,13 @@ function validateForm(){
 		{
 			htmlError += "<li>Referrer active. Cash rate is required.</li>";
 			intErrorCount++;
-		}
-		else if( referrer_cash_rate < 16)
-		{
-			htmlError += "<li>Referrer active. Cash rate can't be lower than 16% </li>";
-			intErrorCount++;
-		}
+		}		
 
 		if( "" == referrer_product_rate)
 		{
 			htmlError += "<li>Referrer active. Product rate is required.</li>";
 			intErrorCount++;
-		}
-		else if( referrer_product_rate < 4)
-		{
-			htmlError += "<li>Referrer active. Product rate can't be lower than 4%</li>";
-			intErrorCount++;
-		}
+		}		
 	}
 
 	htmlError += "</ul>"
