@@ -33,6 +33,8 @@ $arrPayoutData = get_payout_data($intUserid, $intPayinId);
 // Referrals
 $arrReferrals = get_referrals($intUserid);
 
+// Claimed products
+$arrClaimedProducts = get_claimed_products($intUserid);
 ?>
 
 <div class="container">
@@ -226,7 +228,30 @@ $arrReferrals = get_referrals($intUserid);
 						</table>
 					</div>
 	    		</div>
-	    		<div role="tabpanel" class="tab-pane fade" id="products"></div>
+	    		<div role="tabpanel" class="tab-pane fade" id="products">
+	    			<table id="referral-table">
+						<thead>
+							<tr>
+								<th>Control #</th>
+								<th>Product</th>
+								<th>Claim Date</th>
+							</tr>
+						</thead>
+						<tbody>
+	    				<?php 
+	    					foreach ($arrClaimedProducts as $objClaimedProudct)
+	    					{
+	    						$strProductDetails = get_product_details($objClaimedProudct->product_id);
+	    						echo '<tr>';
+	    						echo '<td><p>'. $objClaimedProudct->id .'</p></td>';
+	    						echo '<td><p>'. $strProductDetails .'</p></td>';
+	    						echo '<td><p>'. process_dates($objClaimedProudct->date_claimed) .'</p></td>';
+	    						echo '</tr>';
+	    					}
+	    				?>
+	    				</tbody>
+	    			</table>
+	    		</div>
 	    		<div role="tabpanel" class="tab-pane fade" id="documents"></div>
 	  		</div>
 		</div>

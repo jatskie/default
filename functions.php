@@ -2257,7 +2257,9 @@ function install_satarah_tables()
 	$strPayinHistoryTableName = $wpdb->prefix . "satarah_payin_history";
 	$strSchemeTableName = $wpdb->prefix . "satarah_scheme";
 	$strReferralTableName = $wpdb->prefix . "satarah_referral";
-
+	$strProductList = $wpdb->prefix . "satarah_product_list";
+	$strProductClaim = $wpdb->prefix . "satarah_product_claim";
+	
 	// DROP TABLE IF EXISTS `satarah_payin`;
 	
 	$strSQL = "CREATE TABLE $strPayinTableName (
@@ -2324,6 +2326,26 @@ function install_satarah_tables()
 				ENGINE=INNODB
 				CHARACTER SET utf8 
 				COLLATE utf8_unicode_ci ;
+				
+			CREATE TABLE $strProductList (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `product_details` int(11),
+			  PRIMARY KEY(`id`)
+			)
+			ENGINE=INNODB
+			CHARACTER SET utf8 
+			COLLATE utf8_unicode_ci ;
+			
+			CREATE TABLE $strProductClaim (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `userid` int(11),
+			  `product_id` int(11),
+			  `date_claimed` int(11),
+			  PRIMARY KEY(`id`)
+			)
+			ENGINE=INNODB
+			CHARACTER SET utf8 
+			COLLATE utf8_unicode_ci ;
  	";
 	
 	dbDelta( $strSQL );	
@@ -2902,4 +2924,24 @@ function get_recent_payinid($aIntUserid)
 	$objPayinid = $wpdb->get_row("SELECT * FROM $strPayinTable WHERE userid = $aIntUserid ORDER BY entry_date DESC");
 	
 	return $objPayinid->id;
+}
+
+function get_claimed_products($aIntUserid)
+{
+	global $wpdb;
+	$strProductClaim = $wpdb->prefix . "satarah_product_claim";
+	
+	$arrProductsClaimed = $wpdb->get_results("SELECT * FROM $strProductClaim WHERE userid = $aIntUserid");
+	
+	return $arrProductsClaimed;	
+}
+
+function get_product_details($aIntProductid)
+{
+	global $wpdb;
+	$strProductList = $wpdb->prefix . "satarah_product_list";
+	
+	$objProductsClaimed = $wpdb->get_row("SELECT * FROM $strProductList WHERE id = $aIntProductid");
+	
+	return $objProductsClaimed->product_details;
 }
