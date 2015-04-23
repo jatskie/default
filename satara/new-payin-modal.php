@@ -2,7 +2,7 @@
 global $userpro;
 
 $intUserid = intval( get_query_var('up_username', get_current_user_id()) );
-$strControlNumber = get_payin_control_number();
+$strControlNumber = get_control_number();
 $objUserinfo = get_user_by('id', $intUserid);
 $arrReferrers = get_referrers();
 
@@ -150,7 +150,7 @@ foreach ($arrSchemes as $scheme)
       </div>
       <div class="modal-footer">      	
         <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary">Save</button>        
+        <button class="btn btn-primary">Save</button>
       </div>
       </form>
     </div><!-- /.modal-content -->

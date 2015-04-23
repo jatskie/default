@@ -42,13 +42,13 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 		switch ($intPostMessage)
 		{
 			case 1:
-				$strMsg = "Error: Something is wrong with your pay-in form!";
+				$strMsg = "Error: Something is wrong with your form!";
 				break;
 			case 2:
-				$strMsg = "Error: Adding of payin did not succeed";
+				$strMsg = "Error: Adding did not succeed";
 				break;
 			case 3:
-				$strMsg = "Pay-in added successfully!";
+				$strMsg = "Added successfully!";
 				break;
 			case 4:
 				$strMsg = "Error: Pay-out processing encountered an error.";
@@ -118,7 +118,7 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 						</div>
 						<div class="admin-controls col-xs-4">					
 		    				<?php if( user_can($current_user, 'edit_posts') ): ?>	    					
-								<a class="btn btn-success col-xs-12" data-toggle="modal" data-target="#payin-modal">New Pay-in</a>
+								<a class="btn btn-success col-xs-12" data-toggle="modal" data-target="#payin-modal" data-type="profile">New Pay-in</a>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -237,6 +237,11 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 					</div>
 	    		</div>
 	    		<div role="tabpanel" class="tab-pane fade" id="products">
+	    			<div class="col-xs-12">
+	    				<?php if( user_can($current_user, 'edit_posts') ): ?>	    					
+								<a class="btn btn-success pull-right" data-toggle="modal" data-target="#claim-modal" data-type="profile">New Claim</a>
+						<?php endif; ?>
+	    			</div>
 	    			<table id="referral-table">
 						<thead>
 							<tr>
@@ -249,9 +254,10 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 	    				<?php 
 	    					foreach ($arrClaimedProducts as $objClaimedProudct)
 	    					{
+	    						$strClaimId = "CP-" . str_pad($objClaimedProudct->id, 5, 0, STR_PAD_LEFT);
 	    						$strProductDetails = get_product_details($objClaimedProudct->product_id);
 	    						echo '<tr>';
-	    						echo '<td><p>'. $objClaimedProudct->id .'</p></td>';
+	    						echo '<td><p>'. $strClaimId .'</p></td>';
 	    						echo '<td><p>'. $strProductDetails .'</p></td>';
 	    						echo '<td><p>'. process_dates($objClaimedProudct->date_claimed) .'</p></td>';
 	    						echo '</tr>';
@@ -262,7 +268,7 @@ $arrClaimedProducts = get_claimed_products($intUserid);
 	    		</div>
 	    		<div role="tabpanel" class="tab-pane fade" id="documents">
 	    		<?php 
-	    			echo do_shortcode("[rtmedia_uploader]");
+	    			echo do_shortcode("[rtmedia_gallery global=true media_author=1 uploader=after]");
 	    		?>
 	    		</div>
 	  		</div>

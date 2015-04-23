@@ -66,9 +66,11 @@ if( $howes['layout']=='fullwide' ){
 	
 	<?php
 		$pagename = get_query_var('pagename');
-		if("profile" == trim($pagename))
+		// change to proper permalinks
+		if("profile" == trim($pagename) || "members-directory" == trim($pagename))
 		{	
 			include_once('satara/new-payin-modal.php');
+			include_once('satara/new-claim-modal.php');
 		}
 	?>
 	

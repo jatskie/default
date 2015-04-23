@@ -42,3 +42,26 @@ if(isset($_POST) && "newpayin" == $_POST['posttype'])
 		wp_safe_redirect($profile_url . "?msg=" . $strResultMessage);
 	}
 }
+else if(isset($_POST) && "newclaim" == $_POST['posttype'])
+{
+	$arrData = $_POST;
+	$intErrorCount = 0;
+	
+	unset($arrData['posttype']);
+	$arrData['date_claimed'] = time();
+	
+	$profile_url = $userpro->permalink((int)$arrData['userid']);
+	
+	$boolResult = add_claim($arrData);
+
+	if($boolResult)
+	{
+		$strResultMessage = 3;
+	}
+	else
+	{
+		$strResultMessage = 2;
+	}
+	
+	wp_safe_redirect($profile_url . "?msg=" . $strResultMessage);
+}

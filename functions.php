@@ -2330,7 +2330,8 @@ function install_satarah_tables()
 				
 			CREATE TABLE $strProductList (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `product_details` int(11),
+			  `product_details` varchar(50),
+			  `product_value` float(9,2),
 			  PRIMARY KEY(`id`)
 			)
 			ENGINE=INNODB
@@ -2341,6 +2342,7 @@ function install_satarah_tables()
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `userid` int(11),
 			  `product_id` int(11),
+			  `product_amount` int(11),
 			  `date_claimed` int(11),
 			  PRIMARY KEY(`id`)
 			)
@@ -2429,14 +2431,24 @@ function change_role_name()
 }
 add_action('init', 'change_role_name');
 
-function get_payin_control_number()
+function get_control_number($aStrType = "payin")
 {
 	global $wpdb;
-	$strPayinTable = $wpdb->prefix . 'satarah_payin';
+	
+	switch ($aStrType)
+	{
+		case "claim":
+			$strTable = $wpdb->prefix . 'satarah_product_claim';
+			break;
+		case "payin":
+		default:
+			$strTable = $wpdb->prefix . 'satarah_payin';
+			break;
+	}	
 	
 	$strControlNumber = date('Y', time()) . '-';
 	
-	$objResults = $wpdb->get_row("SELECT * FROM $strPayinTable ORDER BY id DESC LIMIT 1");
+	$objResults = $wpdb->get_row("SELECT * FROM $strTable ORDER BY id DESC LIMIT 1");
 	
 	if(null == $objResults)
 	{
@@ -2448,6 +2460,7 @@ function get_payin_control_number()
 	}
 	return $strControlNumber;
 }
+
 
 function add_payin_schemes($aArrData)
 {
@@ -2797,18 +2810,20 @@ function get_total_points($aIntUserid)
 	$strPayinTable = $wpdb->prefix . "satarah_payin";
 	$strPayinHistoryTable = $wpdb->prefix . "satarah_payin_history";
 	
-	$arrResults = $wpdb->get_results("SELECT SUM(ph.points) FROM $strPayinHistoryTable ph INNER JOIN $strPayinTable p ON ph.payin_id = p.id WHERE p.userid = $aIntUserid");
-	
-	if(empty($arrResults))
-	{
-		return number_format(0,2);
-	}
+	$arrResults = $wpdb->get_results("SELECT SUM(ph.points) FROM $strPayinHistoryTable ph INNER JOIN $strPayinTable p ON ph.payin_id = p.id WHERE p.userid = $aIntUserid");		
 	
 	foreach ($arrResults as $objResult)
 	{
 		foreach ($objResult as $intPoints)
 		{
-			return $intPoints;
+			if("" == $intPoints)
+			{
+				return "0";
+			}
+			else 
+			{
+				return $intPoints;
+			}
 		}
 	}	
 }
@@ -2975,12 +2990,42 @@ function get_claimed_products($aIntUserid)
 	return $arrProductsClaimed;	
 }
 
-function get_product_details($aIntProductid)
+function get_product_details($aIntProductid = 0)
 {
 	global $wpdb;
 	$strProductList = $wpdb->prefix . "satarah_product_list";
+	$strWhere = "";
 	
-	$objProductsClaimed = $wpdb->get_row("SELECT * FROM $strProductList WHERE id = $aIntProductid");
+	if(0 != $aIntProductid)
+	{
+		$strWhere = "WHERE id = $aIntProductid";
+	}
 	
-	return $objProductsClaimed->product_details;
+	$arrProductsClaimed = $wpdb->get_results("SELECT * FROM $strProductList $strWhere");
+	
+	if(0 != $aIntProductid)
+	{
+		return $arrProductsClaimed[0]->product_details;
+	}
+	else
+	{
+		return $arrProductsClaimed;
+	}
+}
+
+function add_claim($aArrData)
+{
+	global $wpdb;
+	$strProductClaimTable = $wpdb->prefix . "satarah_product_claim";
+	
+	return $boolResult = $wpdb->insert($strProductClaimTable, $aArrData);
+		
+}
+
+function add_product($aArrData)
+{
+	global $wpdb;
+	$strProductListTable = $wpdb->prefix . "satarah_product_list";
+	
+	return $boolResult = $wpdb->insert($strProductListTable, $aArrData);
 }

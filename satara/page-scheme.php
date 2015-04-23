@@ -42,7 +42,19 @@ if(isset($_POST) && $_POST['posttype'] != "")
 				echo '<div class="container"><div class="col-xs-12 alert alert-success">Added successfully.</div></div>';
 			}
 			break;
-	}
+		case 'add_product':
+			unset($arrData['posttype']);
+			$boolResult = add_product($arrData);
+			if(false == $boolResult)
+			{
+				echo '<div class="container"><div class="col-xs-12 alert alert-danger">Error: Product add unsuccessful.</div></div>';
+			}
+			else
+			{
+				echo '<div class="container"><div class="col-xs-12 alert alert-success">Product added successfully.</div></div>';
+			}
+			break;
+	}		
 }
 
 $arrSchemes = get_payin_schemes(true);
@@ -55,86 +67,128 @@ foreach ($arrCurrentSchemes as $scheme)
 	$arrCurrentScheme = $scheme;
 }
 
+$arrProducts = get_product_details();
 ?>
+
 <div class="scheme-container">
-	<form method="post" onsubmit="return validateForm()">
-		<input type="hidden" name="posttype" id="posttype" value="" />
-		<select name="id" id="scheme_id">
-			<option value="0">Select scheme to edit</option>
-			<?php 
-			foreach ($arrSchemes as $arrScheme)
-			{
-				$arrUserData = get_user_by('ID', $arrScheme['created_by']);
+	<div role="tabpanel">
 
-				echo '<option 
- 							value="'.$arrScheme['value'].'"
- 							data-rate="'. $arrScheme['rate'] .'"
- 							data-split="'. $arrScheme['split'] .'"
- 							data-points="'. $arrScheme['points'] .'"
- 							data-description = "'. $arrScheme['description'] .'"
- 							data-rcr="'. $arrScheme['referrer_cash_rate'] .'"
- 							data-rpr="'. $arrScheme['referrer_product_rate'] .'"
- 							data-status="'. $arrScheme['is_active'] .'"
-							data-creator="'. $arrScheme['created_by'] .'"
-							data-created="'. $arrScheme['date_created'] .'"
-							data-modified="'. $arrScheme['modifed_by'] .'"
-							data-modifiedon="'. $arrScheme['date_modified'] .'"
- 					  >'. $arrScheme['description'] . ' ('. $arrScheme['name'].')</option>';
-			}
-			?>
-		</select>
-		<p>&nbsp;</p>
-		<h3>Investment Rates</h3>
-		<div class="row">
-			<div class="col-xs-12">
-				<label>Scheme Name</label>
-				<input type="text" name="description" id="description" class="form-control" value="<?php echo $arrCurrentScheme['description']?>">
-			</div>		
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#scheme" aria-controls="scheme" role="tab" data-toggle="tab">Scheme</a></li>
+    <li role="presentation"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Product</a></li>    
+  </ul>
 
-			<div class="col-xs-4">
-				<label>Rate (%)</label>
-				<input type="text" name ="rate" id="rate" class="form-control" value="<?php echo $arrCurrentScheme['rate']?>"/>
-			</div>
-			<div class="col-xs-4">
-				<label>Split</label>
-				<input type="text" name ="split" id="split" class="form-control" value="<?php echo $arrCurrentScheme['split']?>"/>
-			</div>
-			<div class="col-xs-4">
-				<label>Points</label>
-				<input type="text" name ="points" id="points" class="form-control" value="<?php echo $arrCurrentScheme['points']?>"/>
-			</div>
-		</div>		
-		<p>&nbsp;</p>
-		<h3>Referrer Commision Rates</h3>
-		<div class="row">
-			<div class="col-xs-6">
-				<label>Cash</label>
-				<input type="text" name ="referrer_cash_rate" id="referrer_cash_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_cash_rate']?>"/>
-			</div>
-			<div class="col-xs-6">
-				<label>Product</label>
-				<input type="text" name ="referrer_product_rate" id="referrer_product_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_product_rate']?>"/>
-			</div>
-		</div>
-		<p>&nbsp;</p>
-		<div class="col-xs-6">							
-				<input type="hidden" name="is_active" id="is_active" value="1"/>			
-		</div>		
-		<div class="row">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="scheme">
+	    <form method="post" onsubmit="return validateForm()">
+			<input type="hidden" name="posttype" id="posttype" value="" />
+			<select name="id" id="scheme_id">
+				<option value="0">Select scheme to edit</option>
+				<?php 
+				foreach ($arrSchemes as $arrScheme)
+				{
+					$arrUserData = get_user_by('ID', $arrScheme['created_by']);
+	
+					echo '<option 
+	 							value="'.$arrScheme['value'].'"
+	 							data-rate="'. $arrScheme['rate'] .'"
+	 							data-split="'. $arrScheme['split'] .'"
+	 							data-points="'. $arrScheme['points'] .'"
+	 							data-description = "'. $arrScheme['description'] .'"
+	 							data-rcr="'. $arrScheme['referrer_cash_rate'] .'"
+	 							data-rpr="'. $arrScheme['referrer_product_rate'] .'"
+	 							data-status="'. $arrScheme['is_active'] .'"
+								data-creator="'. $arrScheme['created_by'] .'"
+								data-created="'. $arrScheme['date_created'] .'"
+								data-modified="'. $arrScheme['modifed_by'] .'"
+								data-modifiedon="'. $arrScheme['date_modified'] .'"
+	 					  >'. $arrScheme['description'] . ' ('. $arrScheme['name'].')</option>';
+				}
+				?>
+			</select>
 			<p>&nbsp;</p>
-			<div id="errorMsg" class="col-xs-12 alert alert-danger hidden"></div>
-		</div>
-		<p>&nbsp;</p>
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="infobox pull-left"></div>				
-				<button type="submit" class="btn btn-primary col-xs-2 pull-right">Save</button>
-				<button type="reset" class="btn btn-danger col-xs-2 pull-right" id="cancel">Cancel</button>
-				<button type="button" class="btn btn-success col-xs-2 pull-right" id="add-new">Add New</button>
+			<h3>Investment Rates</h3>
+			<div class="row">
+				<div class="col-xs-12">
+					<label>Scheme Name</label>
+					<input type="text" name="description" id="description" class="form-control" value="<?php echo $arrCurrentScheme['description']?>">
+				</div>		
+	
+				<div class="col-xs-4">
+					<label>Rate (%)</label>
+					<input type="text" name ="rate" id="rate" class="form-control" value="<?php echo $arrCurrentScheme['rate']?>"/>
+				</div>
+				<div class="col-xs-4">
+					<label>Split</label>
+					<input type="text" name ="split" id="split" class="form-control" value="<?php echo $arrCurrentScheme['split']?>"/>
+				</div>
+				<div class="col-xs-4">
+					<label>Points</label>
+					<input type="text" name ="points" id="points" class="form-control" value="<?php echo $arrCurrentScheme['points']?>"/>
+				</div>
+			</div>		
+			<p>&nbsp;</p>
+			<h3>Referrer Commision Rates</h3>
+			<div class="row">
+				<div class="col-xs-6">
+					<label>Cash</label>
+					<input type="text" name ="referrer_cash_rate" id="referrer_cash_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_cash_rate']?>"/>
+				</div>
+				<div class="col-xs-6">
+					<label>Product</label>
+					<input type="text" name ="referrer_product_rate" id="referrer_product_rate" class="form-control" value="<?php echo $arrCurrentScheme['referrer_product_rate']?>"/>
+				</div>
 			</div>
-		</div>
-		
-	</form>
+			<p>&nbsp;</p>
+			<div class="col-xs-6">							
+					<input type="hidden" name="is_active" id="is_active" value="1"/>			
+			</div>		
+			<div class="row">
+				<p>&nbsp;</p>
+				<div id="errorMsg" class="col-xs-12 alert alert-danger hidden"></div>
+			</div>
+			<p>&nbsp;</p>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="infobox pull-left"></div>				
+					<button type="submit" class="btn btn-primary col-xs-2 pull-right">Save</button>
+					<button type="reset" class="btn btn-danger col-xs-2 pull-right" id="cancel">Cancel</button>
+					<button type="button" class="btn btn-success col-xs-2 pull-right" id="add-new">Add New</button>
+				</div>
+			</div>			
+		</form>
+    </div>
+    
+    <div role="tabpanel" class="tab-pane" id="product">    	
+    	<div class="row">
+    		<div class="col-xs-6">
+    			<label>Products</label>
+    			<select multiple>
+    				<?php 
+    					foreach ($arrProducts as $objProduct)
+    					{
+    						echo "<option>". $objProduct->product_details ."<option>";
+    					}
+    				?>
+    			</select>
+    		</div>
+    		<div class="col-xs-6">
+    			<form method="post">
+    				<label>Product Name</label>
+    				<input type="hidden" name="posttype" id="posttype" value="add_product" />
+    				<input type="text" name="product_details" id="product_details" class="form-control" required />
+    				<p>&nbsp;</p>
+					<button type="submit" class="btn btn-success col-xs-12 " id="add-new-product">Add New</button>
+				</form>			
+    		</div>
+    	</div>    		    	
+    </div>    
+  </div>
+
+</div>
+	
 </div>
 <script type="text/javascript">
 
